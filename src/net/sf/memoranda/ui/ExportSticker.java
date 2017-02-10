@@ -44,7 +44,11 @@ public class ExportSticker {
          */
         public static String remove1(String input) {
             
+<<<<<<< HEAD
             String original = "ﾃ｡ﾃ�ﾃ､ﾃｩﾃｨﾃｫﾃｭﾃｬﾃｯﾃｳﾃｲﾃｶﾃｺﾃｹuﾃｱﾃ�ﾃ�ﾃ�ﾃ嘉暗凝催古湘禿津姪堙凖愿妥ｧﾃ�";
+=======
+            String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
+>>>>>>> 40a595df3fdd26fc636b577ea71669875f1c6bb4
             
             String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
             String output = input;
@@ -69,12 +73,20 @@ public class ExportSticker {
                         fwrite.write(contents);
                         
                         fwrite.close();
+<<<<<<< HEAD
                         JOptionPane.showMessageDialog(null,Local.getString("Document created successfully in your Memoranda"));
+=======
+                        JOptionPane.showMessageDialog(null,Local.getString("Documento creado con exito en su carpeta Memoranda =D"));
+>>>>>>> 40a595df3fdd26fc636b577ea71669875f1c6bb4
             
             
         } catch (IOException e) {
             e.printStackTrace();
+<<<<<<< HEAD
             JOptionPane.showMessageDialog(null,Local.getString("We failed to create your documents(..."));
+=======
+            JOptionPane.showMessageDialog(null,Local.getString("NO Logramos crear su documento =(..."));
+>>>>>>> 40a595df3fdd26fc636b577ea71669875f1c6bb4
         }
                 
                 
