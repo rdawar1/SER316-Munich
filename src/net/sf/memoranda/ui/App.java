@@ -143,6 +143,12 @@ public class App {
 			return;
 		frame.dispose();
 	}
+	
+	public static void minWindow() {
+		if (frame == null)
+			return;
+		frame.setExtendedState( JFrame.ICONIFIED );
+	}
 
 	/**
 	 * Method showSplash.
