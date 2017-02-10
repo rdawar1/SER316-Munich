@@ -337,6 +337,10 @@ public class ImageDialog extends JDialog implements WindowListener {
     public void windowClosed(WindowEvent e) {
     }
     public void windowIconified(WindowEvent e) {
+        //System.out.println("windowIconified");
+      //  this.dispose(); // Release the window resources
+        //System.exit(0); // End the application
+    	
     }
     public void windowDeiconified(WindowEvent e) {
     }
