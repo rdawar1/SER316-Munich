@@ -149,7 +149,7 @@ public class AgendaPanel extends JPanel {
 						sticker="<html>"+sticker.substring(first+1, last)+"</html>";
 						StickerExpand dlg = new StickerExpand(App.getFrame(),sticker,backGroundColor,foreGroundColor,Local.getString("priority")+": "+Local.getString(priorities[sP]));
 						Dimension frmSize = App.getFrame().getSize();
-						dlg.setSize(new Dimension(300,200));
+						dlg.setSize(new Dimension(500,500));
 						Point loc = App.getFrame().getLocation();
 						dlg.setLocation(
 								(frmSize.width - dlg.getSize().width) / 2 + loc.x,
