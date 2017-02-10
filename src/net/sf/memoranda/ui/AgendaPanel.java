@@ -48,11 +48,7 @@ public class AgendaPanel extends JPanel {
 	JButton historyForwardB = new JButton();
 	JButton export = new JButton();
 	JEditorPane viewer = new JEditorPane("text/html", "");
-<<<<<<< HEAD
 	String[] priorities = {"Very High","High","Moderate","Low","Very Low"};
-=======
-	String[] priorities = {"Muy Alta","Alta","Media","Baja","Muy Baja"};
->>>>>>> 40a595df3fdd26fc636b577ea71669875f1c6bb4
 	JScrollPane scrollPane = new JScrollPane();
 
 	DailyItemsPanel parentPanel = null;
@@ -178,7 +174,7 @@ public class AgendaPanel extends JPanel {
 						String foreGroundColor=sticker.substring(fontcolor, sticker.indexOf(';',fontcolor));
 						StickerDialog dlg = new StickerDialog(App.getFrame(), sticker.substring(first+1, last), backGroundColor, foreGroundColor, sP, size);
 						Dimension frmSize = App.getFrame().getSize();
-						dlg.setSize(new Dimension(300,380));
+						dlg.setSize(new Dimension(500,500));
 						Point loc = App.getFrame().getLocation();
 						dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x,
 							 		(frmSize.height - dlg.getSize().height) / 2 + loc.y);
@@ -194,7 +190,6 @@ public class AgendaPanel extends JPanel {
 						 }
 						 refresh(CurrentDate.get());
 					}else if (d.startsWith("memoranda:exportstickerst")) {
-<<<<<<< HEAD
 						 /*  You need to add the export sticker sometime*/
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Enter archive name to export"),null);
@@ -204,26 +199,11 @@ public class AgendaPanel extends JPanel {
 						 /*  You need to add the export sticker sometime*/
 						 final JFrame parent = new JFrame();
 						 String name = JOptionPane.showInputDialog(parent,Local.getString("Enter archive name to export"),null);
-=======
-						 /*  Falta agregar el exportar sticker mientras tanto..*/
-						 final JFrame parent = new JFrame();
-						 String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
-						 new ExportSticker(name).export("txt");
-						 //JOptionPane.showMessageDialog(null,name);
-					}else if (d.startsWith("memoranda:exportstickersh")) {
-						 /*  Falta agregar el exportar sticker mientras tanto..*/
-						 final JFrame parent = new JFrame();
-						 String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a exportar"),null);
->>>>>>> 40a595df3fdd26fc636b577ea71669875f1c6bb4
 						 new ExportSticker(name).export("html");
 						 //JOptionPane.showMessageDialog(null,name);
 					}else if (d.startsWith("memoranda:importstickers")) {
 						final JFrame parent = new JFrame();
-<<<<<<< HEAD
 						String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to import"),null);
-=======
-						String name = JOptionPane.showInputDialog(parent,Local.getString("Ingrese nombre de archivo a importar"),null);
->>>>>>> 40a595df3fdd26fc636b577ea71669875f1c6bb4
 						new ImportSticker(name).import_file();
 					}
 				}
