@@ -25,7 +25,8 @@ public boolean CANCELLED = true;
         	if(CANCELLED==true){}
                 
 
-                JOptionPane.showMessageDialog(null,Local.getString("We can not import your document."));
+        	else
+        		JOptionPane.showMessageDialog(null,Local.getString("We can not import your document."));
                 return true;
         }
         
