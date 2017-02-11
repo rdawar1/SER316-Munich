@@ -104,7 +104,7 @@ public class TaskPanel extends JPanel {
         newTaskB.setEnabled(true);
         newTaskB.setMaximumSize(new Dimension(24, 24));
         newTaskB.setMinimumSize(new Dimension(24, 24));
-        newTaskB.setToolTipText(Local.getString("Create new task"));
+        newTaskB.setToolTipText(Local.getString("Create new task 333"));
         newTaskB.setRequestFocusEnabled(false);
         newTaskB.setPreferredSize(new Dimension(24, 24));
         newTaskB.setFocusable(false);

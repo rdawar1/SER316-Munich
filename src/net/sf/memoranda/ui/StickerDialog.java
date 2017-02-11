@@ -214,8 +214,8 @@ public class StickerDialog extends JDialog {
             "resources/icons/sticker48.png")));
 		//header.setHorizontalAlignment(SwingConstants.LEFT);
 
-		jLabel1.setText(Local.getString("Sticker color")+": ");
-		jLabel2.setText(Local.getString("Font color")+": ");
+		jLabel1.setText(Local.getString("Sticker Color")+": ");
+		jLabel2.setText(Local.getString("Font Color")+": ");
 		jLabel3.setText(Local.getString("Font Size")+": ");
 		jLabel4.setText(Local.getString("Priority")+": ");
 		jPanel1.setLayout(gridLayout1);
@@ -462,6 +462,9 @@ public class StickerDialog extends JDialog {
 			return this;
 		}
 	}
+	
+	//I love the richly commented code in this file and the descriptive names.
+	//Sarcasm aside, this is the combobox renderer for the textColor combo box.
 	class ComboBoxRenderer2 extends JLabel implements ListCellRenderer {
 		public ComboBoxRenderer2() {
 			setOpaque(true);
@@ -477,14 +480,17 @@ public class StickerDialog extends JDialog {
 			 * if (isSelected) { setBackground(list.getSelectionBackground());
 			 * setForeground(list.getSelectionForeground());
 			 */
-			if ((index > -1) && (index < colors.length))
+			/*if ((index > -1) && (index < colors.length))
 				setForeground(colors[index]);
 			else
 				setForeground(list.getForeground());
-			setBackground(list.getBackground());
+			*/
+			this.setForeground(Color.BLACK);
+			this.setBackground(list.getBackground());
 			//}
 			setText(value.toString());
 			return this;
+			
 		}
 	}
 
