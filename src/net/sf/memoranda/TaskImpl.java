@@ -306,6 +306,7 @@ public class TaskImpl implements Task, Comparable {
     					progress += (task.getProgress() * (miscEffort / 100.0)) / effortlessTasks; 
     				}
     			} else {
+    				// So essentially we're forcing a task to be the sum of any subtasks we have, which is kinda sad.
     				progress += (task.getProgress() / 100.0) / subTasks.size();
     				System.out.println("Progress is now: " + Double.toString(progress));
     			}
