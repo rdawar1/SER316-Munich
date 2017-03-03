@@ -90,7 +90,7 @@ public class ProjectImpl implements Project {
             return Project.ACTIVE;
         else if (today.after(prEnd)) {
             //if (getProgress() == 100)
-                return Project.COMPLETED;
+                return Project.OVERDUE;
             /*else
                 return Project.FAILED;*/
         }
