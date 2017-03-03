@@ -46,6 +46,7 @@ public class TaskPanel extends JPanel {
     JButton historyBackB = new JButton();
     JToolBar tasksToolBar = new JToolBar();
     JButton historyForwardB = new JButton();
+    JButton showActiveOnly = new JButton();
     JButton newTaskB = new JButton();
     JButton subTaskB = new JButton();
     JButton editTaskB = new JButton();
@@ -99,6 +100,29 @@ public class TaskPanel extends JPanel {
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
 
+    	showActiveOnly.setIcon(
+    			new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_active.png")));
+    	showActiveOnly.setEnabled(true);
+    	showActiveOnly.setMaximumSize(new Dimension(24, 24));
+    	showActiveOnly.setMinimumSize(new Dimension(24, 24));
+    	showActiveOnly.setToolTipText(Local.getString("Show active tasks"));
+    	showActiveOnly.setRequestFocusEnabled(false);
+		showActiveOnly.setPreferredSize(new Dimension(24, 24));
+		showActiveOnly.setFocusable(false);		
+		showActiveOnly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	showTasksDue_actionPerformed(e);
+            }
+        });
+		showActiveOnly.setBorderPainted(false);
+		/*if (taskTable.isShowActiveOnly()) {
+		showActiveOnly.setToolTipText(Local.getString("Show All"));			
+		}
+		else {
+			showActiveOnly.setToolTipText(Local.getString("Show Active Only"));			
+		}*/
+		// added by rawsushi
+		
         newTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
         newTaskB.setEnabled(true);
@@ -214,20 +238,6 @@ public class TaskPanel extends JPanel {
 		ppShowActiveOnlyChB.setSelected(isShao);
 		toggleShowActiveOnly_actionPerformed(null);
 
-		/*showActiveOnly.setPreferredSize(new Dimension(24, 24));
-		showActiveOnly.setRequestFocusEnabled(false);
-		if (taskTable.isShowActiveOnly()) {
-			showActiveOnly.setToolTipText(Local.getString("Show All"));			
-		}
-		else {
-			showActiveOnly.setToolTipText(Local.getString("Show Active Only"));			
-		}
-		showActiveOnly.setMinimumSize(new Dimension(24, 24));
-		showActiveOnly.setMaximumSize(new Dimension(24, 24));
-		showActiveOnly.setIcon(
-			new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_active.png")));*/
-		// added by rawsushi
-
 
         this.setLayout(borderLayout1);
         scrollPane.getViewport().setBackground(Color.white);
@@ -316,6 +326,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.add(historyForwardB, null);
         tasksToolBar.addSeparator(new Dimension(8, 24));
 
+        tasksToolBar.add(showActiveOnly, null);
         tasksToolBar.add(newTaskB, null);
         tasksToolBar.add(subTaskB, null);
         tasksToolBar.add(removeTaskB, null);
@@ -704,6 +715,13 @@ public class TaskPanel extends JPanel {
 			"SHOW_ACTIVE_TASKS_ONLY",
 			new Boolean(ppShowActiveOnlyChB.isSelected()));
 		taskTable.tableChanged();
+	}
+	
+	//Provides a list of the tasks for a specific date
+	void showTasksDue_actionPerformed(ActionEvent e){
+		/*TODO: Access the end date of all the tasks for the current project.
+		 * 		List the tasks with the due date matching the current selected date on the calendar.
+		 */
 	}
 
     class PopupListener extends MouseAdapter {
