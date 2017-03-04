@@ -129,7 +129,7 @@ public class TaskTable extends JTable {
 	
 		// Create the tree. It will be used as a renderer and editor.
 		tree = new TreeTableCellRenderer(model);
-		//System.out.println("TREE CREATEDDD!!!!!");
+		
 		// store tree expansion status and
 		// restore after sorting/project change etc.
 		expansion = new ExpansionHandler();

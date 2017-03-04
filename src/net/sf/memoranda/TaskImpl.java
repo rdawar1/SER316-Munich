@@ -10,9 +10,6 @@ package net.sf.memoranda;
 
 import java.util.Collection;
 import java.util.Vector;
-
-import javassist.bytecode.Descriptor.Iterator;
-
 import java.util.Calendar;
 
 import net.sf.memoranda.date.CalendarDate;
@@ -262,64 +259,9 @@ public class TaskImpl implements Task, Comparable {
     }
     /**
      * @see net.sf.memoranda.Task#getProgress()
-     *recursively sets progress based on progress of children
      */
     public int getProgress() {
-    	Collection subTasks = this.getSubTasks();
-    	double progress = 0;
-    	long effort = this.getEffort();
-    	long subTaskEffort = 0;
-    	long miscEffort = 0;
-    	int effortlessTasks = 0;
-    	
-    	boolean judgeByEffort = false;
-    	
-    	//System.out.println("GETTING PROGRESS");
-    	
-    	if (!subTasks.isEmpty() && effort > 0){
-    		for (java.util.Iterator<Collection<Task>> i = subTasks.iterator(); i.hasNext();){
-    			Task task = (Task) i.next();
-    			if (task.getEffort() == 0){
-    				effortlessTasks ++;
-    			}
-    			subTaskEffort += task.getEffort();
-    		}
-    		if (subTaskEffort == effort){
-    			miscEffort = 0;
-    			judgeByEffort = true;
-    		} else if (subTaskEffort < effort && effortlessTasks > 0){
-    			miscEffort = effort - subTaskEffort;
-    			judgeByEffort = true;
-    		}
-    	}
-    	
-    	if (!subTasks.isEmpty()){
-    		//System.out.println("HAS SUBTASKS");
-    		for (java.util.Iterator<Collection<Task>> i = subTasks.iterator(); i.hasNext();){
-    			Task task = (Task) i.next();
-    			if (judgeByEffort){
-    				if (task.getEffort() > 0){
-    					//A task is worth its percent completion * its length/total length
-    					progress += (task.getEffort() * ((double)task.getProgress() / 100.0)) / effort;
-    				  // I shouldn't have to be worried about judgeByEffort
-    				} else {
-    					progress += (task.getProgress() * (miscEffort / 100.0)) / effortlessTasks; 
-    				}
-    			} else {
-    				// So essentially we're forcing a task to be the sum of any subtasks we have, which is kinda sad.
-    				progress += (task.getProgress() / 100.0) / subTasks.size();
-    				//System.out.println("Progress is now: " + Double.toString(progress));
-    			}
-    		}
-    	} else {
-    		return new Integer(_element.getAttribute("progress").getValue()).intValue();
-    	}
-    	int progressPercentage = (int) (progress * 100.0);
-    	if (judgeByEffort){
-    		//System.out.println("FINAL PROGRESS: " + Integer.toString(progressPercentage));
-    		setAttr("progress", new Integer(progressPercentage).toString());
-    	}
-    	return progressPercentage;
+        return new Integer(_element.getAttribute("progress").getValue()).intValue();
     }
     /**
      * @see net.sf.memoranda.Task#setProgress(int)
@@ -327,61 +269,6 @@ public class TaskImpl implements Task, Comparable {
     public void setProgress(int p) {
         if ((p >= 0) && (p <= 100))
             setAttr("progress", new Integer(p).toString());
-
-        if (this.getParentTask() != null){
-        	TaskImpl parent = (TaskImpl) this.getParentTask();
-        	parent.updateProgress();
-        }
-    }
-    
-    //Is called on setProgress; recursively updates parents
-    public void updateProgress() {
-    	Collection subTasks = this.getSubTasks();
-    	double progress = 0;
-    	
-    	long effort = this.getEffort();
-    	long subTaskEffort = 0;
-    	long miscEffort = 0;
-    	int effortlessTasks = 0;
-    	
-    	boolean judgeByEffort = false;
-    	
-    	if (!subTasks.isEmpty() && effort > 0){
-    		for (java.util.Iterator<Collection<Task>> i = subTasks.iterator(); i.hasNext();){
-    			Task task = (Task) i.next();
-    			if (task.getEffort() == 0){
-    				effortlessTasks ++;
-    			}
-    			subTaskEffort += task.getEffort();
-    		}
-    		if (subTaskEffort <= effort){
-    			miscEffort = effort - subTaskEffort;
-    			judgeByEffort = true;
-    		}
-    	}
-    	
-    	if (!subTasks.isEmpty()){
-    		for (java.util.Iterator<Collection<Task>> i = subTasks.iterator(); i.hasNext();){
-    			Task task = (Task) i.next();
-    			if (judgeByEffort){
-    				if (task.getEffort() > 0){
-    					progress += task.getEffort() * (task.getProgress() / 100) / effort;
-    				} else {
-    					progress += task.getProgress() * (miscEffort / 100) / effortlessTasks; 
-    				}
-    			} else {
-    				progress += task.getProgress() / subTasks.size();
-    			}
-    		}
-		this.setProgress((int) progress);
-    	}
-    	
-    	
-    	
-    	if (this.getParentTask() != null){
-    		TaskImpl parent = (TaskImpl) this.getParentTask();
-    		parent.updateProgress();
-    	}
     }
     /**
      * @see net.sf.memoranda.Task#getPriority()
