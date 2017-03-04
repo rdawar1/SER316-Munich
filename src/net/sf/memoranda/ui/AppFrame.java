@@ -7,10 +7,15 @@ import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -281,7 +286,12 @@ public class AppFrame extends JFrame {
                 "resources/icons/help.png")));
         jMenuHelpGuide.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpGuide_actionPerformed(e);
+                try {
+					jMenuHelpGuide_actionPerformed(e);
+				} catch (IOException | URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
         
@@ -290,14 +300,24 @@ public class AppFrame extends JFrame {
                 "resources/icons/web.png")));
         jMenuHelpWeb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpWeb_actionPerformed(e);
+                try {
+					jMenuHelpWeb_actionPerformed(e);
+				} catch (IOException | URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
         
         jMenuHelpBug.setText(Local.getString("Report a bug"));
         jMenuHelpBug.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                jMenuHelpBug_actionPerformed(e);
+                try {
+					jMenuHelpBug_actionPerformed(e);
+				} catch (IOException | URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });        
         
@@ -632,16 +652,28 @@ public class AppFrame extends JFrame {
 
     }
    
-    protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
+    protected void jMenuHelpBug_actionPerformed(ActionEvent e) throws IOException, URISyntaxException {
+        //Util.runBrowser(App.BUGS_TRACKER_URL);
+    	if(Desktop.isDesktopSupported())
+    	{
+    	  Desktop.getDesktop().browse(new URI(App.BUGS_TRACKER_URL));
+    	}
     }
    
-    protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.WEBSITE_URL);
+    protected void jMenuHelpWeb_actionPerformed(ActionEvent e) throws IOException, URISyntaxException {
+        //Util.runBrowser(App.WEBSITE_URL);
+    	if(Desktop.isDesktopSupported())
+    	{
+    	  Desktop.getDesktop().browse(new URI(App.WEBSITE_URL));
+    	}
     }
    
-    protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.GUIDE_URL);
+    protected void jMenuHelpGuide_actionPerformed(ActionEvent e) throws IOException, URISyntaxException {
+        //Util.runBrowser(App.GUIDE_URL);
+    	if(Desktop.isDesktopSupported())
+    	{
+    	  Desktop.getDesktop().browse(new URI(App.GUIDE_URL));
+    	}
     }
     
     //File | Exit action performed
@@ -1103,5 +1135,88 @@ public class AppFrame extends JFrame {
                     exc.printStackTrace();
             }
         }
+            
+            protected void p1Import_actionPerformed() {
+                
+                UIManager.put("FileChooser.lookInLabelText", Local
+                        .getString("Look in:"));
+                UIManager.put("FileChooser.upFolderToolTipText", Local.getString(
+                        "Up One Level"));
+                UIManager.put("FileChooser.newFolderToolTipText", Local.getString(
+                        "Create New Folder"));
+                UIManager.put("FileChooser.listViewButtonToolTipText", Local
+                        .getString("List"));
+                UIManager.put("FileChooser.detailsViewButtonToolTipText", Local
+                        .getString("Details"));
+                UIManager.put("FileChooser.fileNameLabelText", Local.getString(
+                        "File Name:"));
+                UIManager.put("FileChooser.filesOfTypeLabelText", Local.getString(
+                        "Files of Type:"));
+                UIManager.put("FileChooser.openButtonText", Local.getString("Open"));
+                UIManager.put("FileChooser.openButtonToolTipText", Local.getString(
+                        "Open selected file"));
+                UIManager.put("FileChooser.cancelButtonText", Local.getString("Cancel"));
+                UIManager.put("FileChooser.cancelButtonToolTipText", Local.getString(
+                        "Cancel"));
+
+                JFileChooser chooser = new JFileChooser();
+                chooser.setFileHidingEnabled(false);
+
+                chooser.setDialogTitle(Local.getString("Import Stickers"));
+                chooser.setAcceptAllFileFilterUsed(false);
+                chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
+                chooser.setPreferredSize(new Dimension(550, 375));
+
+                File lastSel = null;
+
+                try {
+                    lastSel = (java.io.File) Context.get("LAST_SELECTED_NOTE_FILE");
+                }
+                catch (ClassCastException cce) {
+                    lastSel = new File(System.getProperty("user.dir") + File.separator);
+                }
+                //---------------------------------------------------------------------
+
+                if (lastSel != null)
+                    chooser.setCurrentDirectory(lastSel);
+                if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+                    return;
+                Context.put("LAST_SELECTED_NOTE_FILE", chooser.getSelectedFile());        
+                java.io.File f = chooser.getSelectedFile();
+                HashMap<String,String> notesName = new HashMap<String,String>();
+                HashMap<String,String> notesContent = new HashMap<String,String>();
+                Builder parser = new Builder();
+                String id="", name="", content = "";
+                try{
+                        Document document = parser.build(f);
+                        content = document.getRootElement().getFirstChildElement("body").getValue();
+                        content = content.substring(content.indexOf("\n", content.indexOf("-")));
+                        content = content.replace("<p>","").replace("</p>","\n");
+                        name = f.getName().substring(0,f.getName().lastIndexOf("."));	
+                        Element item;
+                        id=Util.generateId();
+                        System.out.println(id+" "+name+" "+content);
+                        notesName.put(id, name);
+                        notesContent.put(id, content);
+                        JEditorPane p = new JEditorPane();
+                        p.setContentType("text/txt");
+                        
+                        for (Map.Entry<String,String> entry : notesName.entrySet()){
+                                id = entry.getKey();
+                                System.out.println(id+" "+name+" "+content);
+                                p.setText(content);
+                                HTMLDocument doc = (HTMLDocument)p.getDocument();
+                                Note note = CurrentProject.getNoteList().createNoteForDate(CurrentDate.get());
+                        note.setTitle(name);
+                                note.setId(Util.generateId());
+                        CurrentStorage.get().storeNote(note, doc);
+                        }
+                        workPanel.dailyItemsPanel.notesControlPane.refresh();
+                        
+                }catch(Exception exc){
+                        exc.printStackTrace();
+                }
+            }
 
 }

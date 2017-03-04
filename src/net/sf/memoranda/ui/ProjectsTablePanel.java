@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -63,9 +64,10 @@ public class ProjectsTablePanel extends JPanel {
             return super.getCellRenderer(row, column);
         }
     };
-
+    
+    
     boolean activeOnly = false;
-
+    
     public void updateUI() {
 		if(projectsTable!=null) projectsTable.updateUI();
 		super.updateUI();
@@ -98,10 +100,12 @@ public class ProjectsTablePanel extends JPanel {
 
     void initProjectsTable() {
         projectsTable.setModel(new PrjTableModel());
+        projectsTable.setAutoCreateRowSorter(true);
         for (int i = 0; i < 4; i++) {
             TableColumn column = projectsTable.getColumnModel().getColumn(i);
             if (i == 0) {
-                column.setPreferredWidth(32767);
+                column.setPreferredWidth(100);
+                
             }
             else {
                 column.setMinWidth(80);
@@ -190,13 +194,15 @@ public class ProjectsTablePanel extends JPanel {
             case Project.ACTIVE :
                 return Local.getString("Active");
             case Project.COMPLETED :
-                return Local.getString("Completed");
+                return Local.getString("Overdue");
             case Project.FAILED :
                 return Local.getString("Failed");
             case Project.FROZEN :
                 return Local.getString("Frozen");
             case Project.SCHEDULED :
                 return Local.getString("Scheduled");
+	    case Project.OVERDUE :
+                return Local.getString("Overdue");
         }
         return "";
     }
