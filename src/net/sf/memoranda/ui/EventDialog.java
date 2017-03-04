@@ -52,12 +52,6 @@ public class EventDialog extends JDialog implements WindowListener {
     GridBagConstraints gbc;
     JLabel lblTime = new JLabel();
     public JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
-    
-    //This here added by dlahtine
-    //public JSpinner amPmSpin = new JSpinner();
-    public JLabel lblAmPmTime = new JLabel();
-    //</dlahtine>
-    
     JLabel lblText = new JLabel();
     public JTextField textField = new JTextField();
     TitledBorder repeatBorder;
@@ -119,16 +113,11 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTime, gbc);
-
         timeSpin.setPreferredSize(new Dimension(60, 24));
-                
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
-        
-        
-        
         eventPanel.add(timeSpin, gbc);
         
         gbc = new GridBagConstraints();
