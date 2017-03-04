@@ -152,10 +152,10 @@ public class EventDialog extends JDialog implements WindowListener {
         		if (hour > 11){
         			isAM = false;
         		}
+
+        		hour = hour % 12;
         		if (hour == 0){
         			hour = 12;
-        		} else {
-        			hour = hour % 13;
         		}
         		minute = amPmCal.get(Calendar.MINUTE);
         		//probably a better way to do this with formatting.
