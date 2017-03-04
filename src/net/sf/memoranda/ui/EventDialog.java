@@ -52,6 +52,12 @@ public class EventDialog extends JDialog implements WindowListener {
     GridBagConstraints gbc;
     JLabel lblTime = new JLabel();
     public JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+    
+    //This here added by dlahtine
+    //public JSpinner amPmSpin = new JSpinner();
+    public JLabel lblAmPmTime = new JLabel();
+    //</dlahtine>
+    
     JLabel lblText = new JLabel();
     public JTextField textField = new JTextField();
     TitledBorder repeatBorder;
@@ -113,12 +119,62 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTime, gbc);
+
         timeSpin.setPreferredSize(new Dimension(60, 24));
+                
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
+        
+        
+        
         eventPanel.add(timeSpin, gbc);
+        
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2; gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+      //dlahtine
+        lblAmPmTime.setText("AM/PM Time: ");
+        lblAmPmTime.setMinimumSize(new Dimension(60, 24));
+        eventPanel.add(lblAmPmTime, gbc);
+        timeSpin.addChangeListener(new ChangeListener(){
+        	public void stateChanged(ChangeEvent e){
+        		boolean isAM = true;
+        		int hour = 0;
+        		int minute = 0;
+        		String timeStr = "";
+        		Calendar amPmCal = Calendar.getInstance();
+        		Date time = (Date) timeSpin.getModel().getValue();
+        		amPmCal.setTime(time);
+        		hour = amPmCal.get(Calendar.HOUR_OF_DAY);
+        		if (hour > 11){
+        			isAM = false;
+        		}
+        		hour = hour % 12;
+        		if (hour == 0){
+        			hour = 12;
+        		}
+        		minute = amPmCal.get(Calendar.MINUTE);
+        		//probably a better way to do this with formatting.
+        		String hourStr = "";
+        		String minuteStr = "";
+        		if (minute < 10){
+        			minuteStr = "0";
+        		}
+        		hourStr = hourStr + Integer.toString(hour);
+        		minuteStr = minuteStr + Integer.toString(minute);
+        		timeStr = hourStr + ":" + minuteStr + " ";
+        		if (isAM){
+        			timeStr = timeStr + "AM";
+        		} else {
+        			timeStr = timeStr + "PM";
+        		}
+        		lblAmPmTime.setText(timeStr);
+        	}
+        });
+        
         lblText.setText(Local.getString("Text"));
         lblText.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
