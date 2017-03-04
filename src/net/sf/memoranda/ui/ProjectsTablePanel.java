@@ -194,13 +194,15 @@ public class ProjectsTablePanel extends JPanel {
             case Project.ACTIVE :
                 return Local.getString("Active");
             case Project.COMPLETED :
-                return Local.getString("Completed");
+                return Local.getString("Overdue");
             case Project.FAILED :
                 return Local.getString("Failed");
             case Project.FROZEN :
                 return Local.getString("Frozen");
             case Project.SCHEDULED :
                 return Local.getString("Scheduled");
+	    case Project.OVERDUE :
+                return Local.getString("Overdue");
         }
         return "";
     }
