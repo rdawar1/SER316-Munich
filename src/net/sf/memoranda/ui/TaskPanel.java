@@ -709,27 +709,27 @@ public class TaskPanel extends JPanel {
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-			if ((e.getClickCount() == 2) && (taskTable.getSelectedRow() > -1)){
-				// ignore "tree" column
-				//if(taskTable.getSelectedColumn() == 1) return;
-				
-				editTaskB_actionPerformed(null);
-			}
+		if ((e.getClickCount() == 2) && (taskTable.getSelectedRow() > -1)){
+			// ignore "tree" column
+			//if(taskTable.getSelectedColumn() == 1) return;
+			
+			editTaskB_actionPerformed(null);
+		}
         }
 
-        public void mousePressed(MouseEvent e) {
-            maybeShowPopup(e);
-        }
+                public void mousePressed(MouseEvent e) {
+                    maybeShowPopup(e);
+                }
 
-        public void mouseReleased(MouseEvent e) {
-            maybeShowPopup(e);
-        }
+                public void mouseReleased(MouseEvent e) {
+                    maybeShowPopup(e);
+                }
 
-        private void maybeShowPopup(MouseEvent e) {
-            if (e.isPopupTrigger()) {
-                taskPPMenu.show(e.getComponent(), e.getX(), e.getY());
-            }
-        }
+                private void maybeShowPopup(MouseEvent e) {
+                    if (e.isPopupTrigger()) {
+                        taskPPMenu.show(e.getComponent(), e.getX(), e.getY());
+                    }
+                }
 
     }
 
