@@ -274,7 +274,7 @@ public class TaskImpl implements Task, Comparable {
     	
     	boolean judgeByEffort = false;
     	
-    	System.out.println("GETTING PROGRESS");
+    	//System.out.println("GETTING PROGRESS");
     	
     	if (!subTasks.isEmpty() && effort > 0){
     		for (java.util.Iterator<Collection<Task>> i = subTasks.iterator(); i.hasNext();){
@@ -294,7 +294,7 @@ public class TaskImpl implements Task, Comparable {
     	}
     	
     	if (!subTasks.isEmpty()){
-    		System.out.println("HAS SUBTASKS");
+    		//System.out.println("HAS SUBTASKS");
     		for (java.util.Iterator<Collection<Task>> i = subTasks.iterator(); i.hasNext();){
     			Task task = (Task) i.next();
     			if (judgeByEffort){
@@ -308,7 +308,7 @@ public class TaskImpl implements Task, Comparable {
     			} else {
     				// So essentially we're forcing a task to be the sum of any subtasks we have, which is kinda sad.
     				progress += (task.getProgress() / 100.0) / subTasks.size();
-    				System.out.println("Progress is now: " + Double.toString(progress));
+    				//System.out.println("Progress is now: " + Double.toString(progress));
     			}
     		}
     	} else {
@@ -316,7 +316,7 @@ public class TaskImpl implements Task, Comparable {
     	}
     	int progressPercentage = (int) (progress * 100.0);
     	if (judgeByEffort){
-    		System.out.println("FINAL PROGRESS: " + Integer.toString(progressPercentage));
+    		//System.out.println("FINAL PROGRESS: " + Integer.toString(progressPercentage));
     		setAttr("progress", new Integer(progressPercentage).toString());
     	}
     	return progressPercentage;
