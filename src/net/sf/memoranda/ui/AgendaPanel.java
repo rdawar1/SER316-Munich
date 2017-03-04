@@ -202,8 +202,9 @@ public class AgendaPanel extends JPanel {
 						 new ExportSticker(name).export("html");
 						 //JOptionPane.showMessageDialog(null,name);
 					}else if (d.startsWith("memoranda:importstickers")) {
-						final JFrame parent = new JFrame();
-						String name = JOptionPane.showInputDialog(parent,Local.getString("Enter file name to import"),null);
+						//final JFrame parent = new JFrame();
+						//String name = JOptionPane.showInputDialog(parent,Local.getString("Import a sticker?"),null);
+						String name = "";
 						new ImportSticker(name).import_file();
 					}
 				}
