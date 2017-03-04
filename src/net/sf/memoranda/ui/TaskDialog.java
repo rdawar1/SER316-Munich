@@ -48,6 +48,7 @@ public class TaskDialog extends JDialog {
     JButton cancelB = new JButton();
     JButton okB = new JButton();
     Border border1;
+    //"Border border2"? Are you kidding me? Who wrote this? Who commented this?
     Border border2;
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JLabel header = new JLabel();
@@ -64,7 +65,7 @@ public class TaskDialog extends JDialog {
     JTextField effortField = new JTextField();
     JTextArea descriptionField = new JTextArea();
     JScrollPane descriptionScrollPane = new JScrollPane(descriptionField);
-    
+   
 //    Border border7;
     Border border8;
     CalendarFrame startCalFrame = new CalendarFrame();

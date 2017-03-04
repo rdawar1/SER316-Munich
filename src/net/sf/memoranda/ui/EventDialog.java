@@ -152,6 +152,7 @@ public class EventDialog extends JDialog implements WindowListener {
         		if (hour > 11){
         			isAM = false;
         		}
+
         		hour = hour % 12;
         		if (hour == 0){
         			hour = 12;
