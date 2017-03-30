@@ -1,4 +1,4 @@
-package net.sf.memoranda.ui;
+ppackage net.sf.memoranda.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -20,9 +20,9 @@ import net.sf.memoranda.util.Context;
 import net.sf.memoranda.util.Local;
 
 /**
- * 
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
- */
+ * 
+ * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ */
 
 /*$Id: WorkPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
 public class WorkPanel extends JPanel {
@@ -38,6 +38,7 @@ public class WorkPanel extends JPanel {
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
+	public JButton datesB = new JButton();
 	JButton currentB = null;
 	Border border1;
 
@@ -93,6 +94,32 @@ public class WorkPanel extends JPanel {
 		agendaB.setOpaque(false);
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
 		agendaB.setSelected(true);
+		
+		datesB.setBackground(Color.white);
+		datesB.setMaximumSize(new Dimension(60, 80));
+		datesB.setMinimumSize(new Dimension(30, 30));
+
+		datesB.setFont(new java.awt.Font("Dialog", 1, 10));
+		datesB.setPreferredSize(new Dimension(50, 50));
+		datesB.setBorderPainted(false);
+		datesB.setContentAreaFilled(false);
+		datesB.setFocusPainted(false);
+		datesB.setHorizontalTextPosition(SwingConstants.CENTER);
+		datesB.setText(Local.getString("Imp Dates"));
+		datesB.setVerticalAlignment(SwingConstants.TOP);
+		datesB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		datesB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				datesB_actionPerformed(e);
+			}
+		});
+		datesB.setIcon(
+			new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+					"resources/icons/agenda.png")));
+		datesB.setOpaque(false);
+		datesB.setMargin(new Insets(0, 0, 0, 0));
+		datesB.setSelected(true);
 
 		eventsB.setBackground(Color.white);
 		eventsB.setMaximumSize(new Dimension(60, 80));
@@ -205,6 +232,7 @@ public class WorkPanel extends JPanel {
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
+		toolBar.add(datesB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -237,6 +265,18 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "AGENDA");
 	}
 
+	
+	
+	
+	
+	public void datesB_actionPerformed(ActionEvent e) {
+		Impdates d = new Impdates();
+	}
+	
+	
+	
+	
+	
 	public void notesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("NOTES");
