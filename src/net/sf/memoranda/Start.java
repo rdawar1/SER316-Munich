@@ -67,8 +67,10 @@ public class Start {
                  app = new App(true);
                 }
                  else
+                 {
                           app = new App(false);
-                  }
+                 }
+           }
       }
 }
 
