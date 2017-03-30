@@ -1,6 +1,5 @@
+// Written By Rahul Dawar
 package net.sf.memoranda;
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -21,21 +20,15 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
  
-
+// This class creates a dialog that asks the user for username and password before thet can log into memoranda.
 public class Password extends JDialog implements ActionListener {
 	
 	
 	 JTextField txt, txt1;
 	 boolean ret = false;
-	
 	 JButton submit, convert1;;
 	 
-	 /**
-	 * @param none
-	 * @return none
-	 * Converter() Constructor
-	 */
-	
+
 	Password()
 	{
 	
@@ -44,14 +37,14 @@ public class Password extends JDialog implements ActionListener {
 		submit=new JButton("submit");
 		
 		
-			this.setModal(true);
-			this.setLayout(null);
-            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            this.setLocationRelativeTo(null);
-            this.setSize(370, 300);
+		this.setModal(true);
+		this.setLayout(null);
+            	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	this.setLocationRelativeTo(null);
+            	this.setSize(370, 300);
             
-            this.setTitle("Access Password Manager");
-            this.setResizable(false);
+           	 this.setTitle("Access Password Manager");
+           	 this.setResizable(false);
 			
 
 		txt.setBounds(30,50,280,30);
@@ -67,9 +60,9 @@ public class Password extends JDialog implements ActionListener {
 		
 		
 	
-	this.setVisible(true);
+		this.setVisible(true);
 		
-		//submit.addActionListener(this);
+		
 		
 		
 	}
@@ -106,6 +99,7 @@ public class Password extends JDialog implements ActionListener {
 			}
 			 
 	}
+	// the method will be modified
 	
 	boolean checkPassword()
 	{
