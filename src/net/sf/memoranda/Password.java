@@ -27,11 +27,12 @@ public class Password extends JDialog implements ActionListener {
 	 JTextField txt, txt1;
 	 boolean ret = false;
 	 JButton submit, convert1;;
+	public boolean unitTest;
 	 
 
-	Password()
+	public Password()
 	{
-	
+		unitTest = false;
 		txt=new JTextField("User Name");
 		txt1=new JTextField("Password");
 		submit=new JButton("submit");
@@ -61,7 +62,7 @@ public class Password extends JDialog implements ActionListener {
 		
 	
 		this.setVisible(true);
-		
+		unitTest = true;
 		
 		
 		
