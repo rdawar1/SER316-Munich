@@ -50,7 +50,8 @@ public class ExportSticker {
             String output = input;
             for (int i=0; i<original.length(); i++) {
             
-                output = output.replace(original.charAt(i), ascii.charAt(i));
+                //output = output.replace(original.charAt(i), ascii.charAt(i));
+            	//Commented out due to high potential for error.
             }
             return output;
         }
