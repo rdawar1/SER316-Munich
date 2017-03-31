@@ -10,6 +10,7 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 
 import javax.swing.BorderFactory;
@@ -27,6 +28,16 @@ import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+//dlahtine
+import javax.swing.JSpinner;
+import javax.swing.JCheckBox;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.swing.SpinnerDateModel;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.Context;
@@ -34,6 +45,13 @@ import net.sf.memoranda.util.Local;
 
 /*$Id: StickerDialog.java,v 1.5 2004/10/07 21:31:33 ivanrise Exp $*/
 public class StickerDialog extends JDialog {
+	//dlahtine
+	//JPanel expiresJPanel = new JPanel();
+	JCheckBox expiresCheckBox = new JCheckBox();
+	JLabel expiresLabel = new JLabel();
+	JSpinner expirationDateSpinner;
+	//boolean expires = false;
+	
 	public boolean CANCELLED = true;
 	JPanel panel1 = new JPanel();
 	BorderLayout borderLayout1 = new BorderLayout();
@@ -108,7 +126,8 @@ public class StickerDialog extends JDialog {
 			new ExceptionDialog(ex);
 		}
 	}
-	public StickerDialog(Frame frame, String text, String backcolor, String forecolor, int sP, int size){
+	public StickerDialog(Frame frame, String text, String backcolor, 
+			             String forecolor, int sP, int size){
 		super(frame, Local.getString("Sticker"), true);
 		try {
 			jbInit();
@@ -140,6 +159,15 @@ public class StickerDialog extends JDialog {
 		else fontSize.setSelectedIndex(1);
 	}
 
+	//dlahtine
+	public StickerDialog(Frame frame, String text, String backcolor, 
+            String forecolor, int sP, int size, CalendarDate expirationDate){
+		this(frame, text, backcolor, forecolor, sP, size);
+		if (expirationDate != null){
+			expiresCheckBox.setSelected(true);
+			expirationDateSpinner.setEnabled(true);
+	}
+	
 	public StickerDialog() {
 		this(null);
 	}
@@ -218,6 +246,7 @@ public class StickerDialog extends JDialog {
 		jLabel2.setText(Local.getString("Font Color")+": ");
 		jLabel3.setText(Local.getString("Font Size")+": ");
 		jLabel4.setText(Local.getString("Priority")+": ");
+
 		jPanel1.setLayout(gridLayout1);
 		panel1.setBorder(border1);
 		jPanel1.setBorder(border2);
@@ -232,6 +261,39 @@ public class StickerDialog extends JDialog {
 		this.getContentPane().add(topPanel, BorderLayout.NORTH);
 		topPanel.add(header);
 		
+		//dlahtine
+		expiresLabel.setText("Expires");
+		expiresCheckBox.setSelected(false);
+		expiresCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				expirationDateSpinner.setEnabled(expiresCheckBox.isSelected());
+				//expires = expiresCheckBox.isSelected()
+			}
+		});
+		
+		expirationDateSpinner = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
+		expirationDateSpinner.setEnabled(false);
+		expirationDateSpinner.setPreferredSize(new Dimension(80,34));
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
+		expirationDateSpinner.setEditor(new JSpinner.DateEditor(expirationDateSpinner, sdf.toPattern()));
+		expirationDateSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+            	// it's an ugly hack so that the spinner can increase day by day
+            	SpinnerDateModel sdm = new SpinnerDateModel((Date)expirationDateSpinner.getModel().getValue(),null,null,Calendar.DAY_OF_WEEK);
+            	expirationDateSpinner.setModel(sdm);
+
+                Date date = (Date) expirationDateSpinner.getModel().getValue();
+                DateFormat df = new SimpleDateFormat("dd/M/yy");
+                Date currentDate = new Date();
+                if (date.before(currentDate) && expiresCheckBox.isSelected()) {
+                    expirationDateSpinner.getModel().setValue(currentDate);
+                }
+            }
+		});
+		
+		
+		
 		jPanel1.add(jLabel1);
 		jPanel1.add(stickerColor);
 		jPanel1.add(jLabel2);
@@ -245,6 +307,11 @@ public class StickerDialog extends JDialog {
 		jPanel1.add(unorderedListButton);
 		jPanel1.add(jLabel4);
 		jPanel1.add(priorityList);
+		
+		//dlahtine
+		jPanel1.add(expiresLabel);
+		jPanel1.add(expiresCheckBox);
+		jPanel1.add(expirationDateSpinner);
 		
 		if (Context.get("STICKER_COLOR") != null) {
 			Color c = new Color(new Integer(Context.get("STICKER_COLOR").toString()).intValue());
@@ -319,6 +386,21 @@ public class StickerDialog extends JDialog {
 			if (c.equals(colors[i]))
 				return i;
 		return -1;
+	}
+	
+	//dlahtine
+	public Date getExpirationDate(){
+		if (this.expiresCheckBox.isSelected()){
+			return (Date) this.expirationDateSpinner.getModel().getValue();
+		} else {
+			return null;
+		}
+	}
+	
+	public void setExpirationDate(Date expires){
+		this.expiresCheckBox.setSelected(true);
+		this.expirationDateSpinner.setValue(expires);
+		this.expirationDateSpinner.setEnabled(true);
 	}
 
 	public String getStickerText() {
