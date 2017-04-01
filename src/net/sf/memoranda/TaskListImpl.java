@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.ui.TaskTable;
 import net.sf.memoranda.util.Util;
 import nu.xom.Attribute;
 import nu.xom.Document;
@@ -151,6 +152,17 @@ public class TaskListImpl implements TaskList {
         }
 		elements.remove(task.getID());
     }
+    
+/*    public void hide(int taskID){
+    	//TODO
+    	TaskTable c = new TaskTable();
+    	c.setRowHeight(taskID, 1);
+    	c.layout();
+    }
+    
+    public void show(int taskID){
+    	//TODO
+    }*/
 
     public boolean hasSubTasks(String id) {
         Element task = getTaskElement(id);
