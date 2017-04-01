@@ -4,10 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -117,14 +115,12 @@ public class AgendaPanel extends JPanel {
 								(frmSize.height - dlg.getSize().height) / 2
 								+ loc.y);
 						dlg.setVisible(true);
-						//dlahtine
 						if (!dlg.CANCELLED) {
 							String txt = dlg.getStickerText();
-							Date expirationDate = dlg.getExpirationDate();
 							int sP = dlg.getPriority();
 							txt = txt.replaceAll("\\n", "<br>");
                             txt = "<div style=\"background-color:"+dlg.getStickerColor()+";font-size:"+dlg.getStickerTextSize()+";color:"+dlg.getStickerTextColor()+"; \">"+txt+"</div>";
-							EventsManager.createSticker(txt, sP, expirationDate);
+							EventsManager.createSticker(txt, sP);
 							CurrentStorage.get().storeEventsManager();
 						}
 						refresh(CurrentDate.get());
@@ -161,7 +157,6 @@ public class AgendaPanel extends JPanel {
 								+ loc.y);
 						dlg.stickerText.setText(sticker);
 						dlg.setVisible(true);
-						//dlahtine
 					}else if (d.startsWith("memoranda:editsticker")) {
 						String id = d.split("#")[1];
 						Element pre_sticker=(Element)((Map)EventsManager.getStickers()).get(id);
@@ -179,34 +174,18 @@ public class AgendaPanel extends JPanel {
 						String foreGroundColor=sticker.substring(fontcolor, sticker.indexOf(';',fontcolor));
 						StickerDialog dlg = new StickerDialog(App.getFrame(), sticker.substring(first+1, last), backGroundColor, foreGroundColor, sP, size);
 						Dimension frmSize = App.getFrame().getSize();
-						
-						SimpleDateFormat sdf = EventsManager.getSimpleDateFormat();
-						Date expirationDate;
-						String dateString = pre_sticker.getAttributeValue("date");
-						try { 
-								expirationDate = sdf.parse(dateString);
-								dlg.setExpirationDate(expirationDate);
-						} catch (Exception exception){
-							exception.printStackTrace(System.out);
-							expirationDate = null;
-						}
-						
-						
-						
 						dlg.setSize(new Dimension(500,500));
 						Point loc = App.getFrame().getLocation();
 						dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x,
 							 		(frmSize.height - dlg.getSize().height) / 2 + loc.y);
 						dlg.setVisible(true);
-						//Date todaysDate = new Date();
 						if (!dlg.CANCELLED) {
 							String txt = dlg.getStickerText();
-							Date expires = dlg.getExpirationDate();
 							sP = dlg.getPriority();
 							txt = txt.replaceAll("\\n", "<br>");
 							txt = "<div style=\"background-color:"+dlg.getStickerColor()+";font-size:"+dlg.getStickerTextSize()+";color:"+dlg.getStickerTextColor()+";\">"+txt+"</div>";
 							EventsManager.removeSticker(id);
-							EventsManager.createSticker(txt, sP, expires);
+							EventsManager.createSticker(txt, sP);
 							CurrentStorage.get().storeEventsManager();
 						 }
 						 refresh(CurrentDate.get());
