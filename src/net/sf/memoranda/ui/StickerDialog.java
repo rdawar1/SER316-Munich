@@ -284,7 +284,7 @@ public class StickerDialog extends JDialog {
             	expirationDateSpinner.setModel(sdm);
 
                 Date date = (Date) expirationDateSpinner.getModel().getValue();
-                DateFormat df = new SimpleDateFormat("dd/M/yy");
+                DateFormat df = new SimpleDateFormat("dd/MM/yy");
                 Date currentDate = new Date();
                 if (date.before(currentDate) && expiresCheckBox.isSelected()) {
                     expirationDateSpinner.getModel().setValue(currentDate);
