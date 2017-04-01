@@ -1,3 +1,6 @@
+//The Impdates list all the important dates in your 
+//calender so you do not forget about them.
+//The important dates include dates you have tasks due and holidays
 package net.sf.memoranda.ui;
 
 import java.awt.FlowLayout;
