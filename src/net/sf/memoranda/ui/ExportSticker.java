@@ -5,6 +5,7 @@ import java.nio.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -61,6 +62,8 @@ public class ExportSticker {
                 String fs = System.getProperty("file.separator");
                 
                 String contents = getSticker();
+                if (Objects.equals(name, null) || Objects.equals(name, ""))
+                	return false;
                 try {
                 File file = new File(this.name+"."+src);
                 
