@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.util.Map;
 import java.util.Collections;
-
+import java.util.Date;
 
 import net.sf.memoranda.date.CalendarDate;
 import net.sf.memoranda.util.CurrentStorage;
@@ -25,6 +25,9 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.ParentNode;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *  
@@ -39,6 +42,8 @@ public class EventsManager {
 	public static final int REPEAT_WEEKLY = 2;
 	public static final int REPEAT_MONTHLY = 3;
 	public static final int REPEAT_YEARLY = 4;
+	
+	protected final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static Document _doc = null;
 	static Element _root = null;
@@ -56,10 +61,16 @@ public class EventsManager {
 
 	}
 
-	public static void createSticker(String text, int prior) {
+	//dlahtine
+	public static void createSticker(String text, int prior, Date expiration) {
 		Element el = new Element("sticker");
 		el.addAttribute(new Attribute("id", Util.generateId()));
 		el.addAttribute(new Attribute("priority", prior+""));
+		if (expiration == null){
+			el.addAttribute(new Attribute("date", ""));
+		} else {
+			el.addAttribute(new Attribute("date", sdf.format(expiration)));
+		}
 		el.appendChild(text);
 		_root.appendChild(el);
 	}
@@ -68,9 +79,26 @@ public class EventsManager {
 	public static Map getStickers() {
 		Map m = new HashMap();
 		Elements els = _root.getChildElements("sticker");
+		Vector<String> expiredStickers = new Vector<String>();
 		for (int i = 0; i < els.size(); i++) {
+		
 			Element se = els.get(i);
-			m.put(se.getAttribute("id").getValue(), se);
+			
+			try {
+				if (se.getAttribute("date").getValue().compareTo("") == 0){
+					m.put(se.getAttribute("id").getValue(), se);
+					//Converts string to date, then checks that it hasn't expired
+				} else if (sdf.parse(se.getAttribute("date").getValue()).after(new Date())) {
+					m.put(se.getAttribute("id").getValue(), se);
+				} else {
+					expiredStickers.add(se.getAttribute("id").getValue());
+				}
+			} catch (ParseException pe){
+				System.out.println("ERROR: Trouble getting sticker date!!!");
+			} for (int j = 0; j < expiredStickers.size(); j++){
+				removeSticker(expiredStickers.get(j));
+			}
+			
 		}
 		return m;
 	}
@@ -93,6 +121,10 @@ public class EventsManager {
 		if (d.getElement().getChildElements("event").size() > 0)
 			return true;
 		return false;
+	}
+	
+	public static SimpleDateFormat getSimpleDateFormat(){
+		return sdf;
 	}
 
 	public static Collection getEventsForDate(CalendarDate date) {
