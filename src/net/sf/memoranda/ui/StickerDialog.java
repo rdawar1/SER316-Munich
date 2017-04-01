@@ -165,7 +165,7 @@ public class StickerDialog extends JDialog {
 		this(frame, text, backcolor, forecolor, sP, size);
 		if (expirationDate != null){
 			expiresCheckBox.setSelected(true);
-			expirationDateSpinner.setEnabled(true);
+			expirationDateSpinner.setEnabled(true);}
 	}
 	
 	public StickerDialog() {
