@@ -46,7 +46,7 @@ public class TaskPanel extends JPanel {
     JButton historyBackB = new JButton();
     JToolBar tasksToolBar = new JToolBar();
     JButton historyForwardB = new JButton();
-    JButton showActiveOnly = new JButton();
+    JButton showTasksDue = new JButton();
     JButton newTaskB = new JButton();
     JButton subTaskB = new JButton();
     JButton editTaskB = new JButton();
@@ -100,21 +100,21 @@ public class TaskPanel extends JPanel {
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
 
-    	showActiveOnly.setIcon(
+    	showTasksDue.setIcon(
     			new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_active.png")));
-    	showActiveOnly.setEnabled(true);
-    	showActiveOnly.setMaximumSize(new Dimension(24, 24));
-    	showActiveOnly.setMinimumSize(new Dimension(24, 24));
-    	showActiveOnly.setToolTipText(Local.getString("Show active tasks"));
-    	showActiveOnly.setRequestFocusEnabled(false);
-		showActiveOnly.setPreferredSize(new Dimension(24, 24));
-		showActiveOnly.setFocusable(false);		
-		showActiveOnly.addActionListener(new java.awt.event.ActionListener() {
+    	showTasksDue.setEnabled(true);
+    	showTasksDue.setMaximumSize(new Dimension(24, 24));
+    	showTasksDue.setMinimumSize(new Dimension(24, 24));
+    	showTasksDue.setToolTipText(Local.getString("Show tasks due"));
+    	showTasksDue.setRequestFocusEnabled(false);
+		showTasksDue.setPreferredSize(new Dimension(24, 24));
+		showTasksDue.setFocusable(false);		
+		showTasksDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	showTasksDue_actionPerformed(e);
             }
         });
-		showActiveOnly.setBorderPainted(false);
+		showTasksDue.setBorderPainted(false);
 		/*if (taskTable.isShowActiveOnly()) {
 		showActiveOnly.setToolTipText(Local.getString("Show All"));			
 		}
@@ -326,7 +326,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.add(historyForwardB, null);
         tasksToolBar.addSeparator(new Dimension(8, 24));
 
-        tasksToolBar.add(showActiveOnly, null);
+        tasksToolBar.add(showTasksDue, null);
         tasksToolBar.add(newTaskB, null);
         tasksToolBar.add(subTaskB, null);
         tasksToolBar.add(removeTaskB, null);
@@ -722,6 +722,20 @@ public class TaskPanel extends JPanel {
 		/*TODO: Access the end date of all the tasks for the current project.
 		 * 		List the tasks with the due date matching the current selected date on the calendar.
 		 */
+		TaskList tl = null;
+		int rc = taskTable.getRowCount();
+		taskTable.selectAll();
+		int[] list = taskTable.getSelectedRows();
+		for(int i = 0; i < rc; i++){
+			Task t =
+					CurrentProject.getTaskList().getTask(
+			                taskTable.getModel().getValueAt(list[i], TaskTable.TASK_ID).toString());
+			if (t.getEndDate() != CalendarDate.today()){
+				CurrentProject.getTaskList().removeTask(t);
+			}
+		}
+		taskTable.tableChanged();
+        parentPanel.updateIndicators();
 	}
 
     class PopupListener extends MouseAdapter {
