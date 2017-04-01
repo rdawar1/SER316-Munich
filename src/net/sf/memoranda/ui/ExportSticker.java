@@ -5,6 +5,7 @@ import java.nio.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -50,7 +51,8 @@ public class ExportSticker {
             String output = input;
             for (int i=0; i<original.length(); i++) {
             
-                output = output.replace(original.charAt(i), ascii.charAt(i));
+                //output = output.replace(original.charAt(i), ascii.charAt(i));
+            	//Commented out due to high potential for error.
             }
             return output;
         }
@@ -60,6 +62,8 @@ public class ExportSticker {
                 String fs = System.getProperty("file.separator");
                 
                 String contents = getSticker();
+                if (Objects.equals(name, null) || Objects.equals(name, ""))
+                	return false;
                 try {
                 File file = new File(this.name+"."+src);
                 

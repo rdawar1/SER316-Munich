@@ -1165,7 +1165,7 @@ public class AppFrame extends JFrame {
                 chooser.setDialogTitle(Local.getString("Import Stickers"));
                 chooser.setAcceptAllFileFilterUsed(false);
                 chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
+                    //chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.HTML));
                 chooser.setPreferredSize(new Dimension(550, 375));
 
                 File lastSel = null;
@@ -1190,7 +1190,7 @@ public class AppFrame extends JFrame {
                 String id="", name="", content = "";
                 try{
                         Document document = parser.build(f);
-                        content = document.getRootElement().getFirstChildElement("body").getValue();
+                        //content = document.getRootElement().getFirstChildElement("body").getValue();
                         content = content.substring(content.indexOf("\n", content.indexOf("-")));
                         content = content.replace("<p>","").replace("</p>","\n");
                         name = f.getName().substring(0,f.getName().lastIndexOf("."));	
