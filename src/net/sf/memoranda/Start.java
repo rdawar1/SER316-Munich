@@ -44,34 +44,27 @@ public class Start {
     }
     
     public static void main(String[] args) {
-        
-        Password p = new Password();
-    	if(p.checkPassword())
-    	{
-             if (checkIfAlreadyStartet) {
-                     try {
-                             // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
-                              Socket socket = new Socket("127.0.0.1", DEFAULT_PORT);
-                              socket.close();
-                              System.exit(0);
+        if (checkIfAlreadyStartet) {
+            try {
+                // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
+                Socket socket = new Socket("127.0.0.1", DEFAULT_PORT);
+                socket.close();
+                System.exit(0);
                 
-                         } catch (Exception e) {
-                            // If socket is not opened (app is not started), continue
-                            // e.printStackTrace();
-                          }
-                           new SLThread().start();
-             }
+            } catch (Exception e) {
+                // If socket is not opened (app is not started), continue
+                // e.printStackTrace();
+            }
+            new SLThread().start();
+        }
         
-              //System.out.println(EventsScheduler.isEventScheduled());
-                if ((args.length == 0) || (!args[0].equals("-m"))) {
-                 app = new App(true);
-                }
-                 else
-                 {
-                          app = new App(false);
-                 }
-           }
-      }
+        //System.out.println(EventsScheduler.isEventScheduled());
+        if ((args.length == 0) || (!args[0].equals("-m"))) {
+            app = new App(true);
+        }
+        else
+            app = new App(false);
+    }
 }
 
 class SLThread extends Thread {
