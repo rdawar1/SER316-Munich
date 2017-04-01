@@ -2,8 +2,10 @@ package net.sf.memoranda.ui;
 
 import java.awt.FlowLayout;
 import javax.swing.*;
-class Impdates{
-Impdates() {
+public class Impdates{
+	
+	public boolean x = false;
+public Impdates() {
  JFrame frame = new JFrame("Important Dates");
  JPanel panel = new JPanel();
  panel.setLayout(new FlowLayout());
@@ -42,5 +44,6 @@ Impdates() {
  frame.setLocationRelativeTo(null);
  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  frame.setVisible(true);
+ x = true;
 }
 }
