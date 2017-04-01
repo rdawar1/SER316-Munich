@@ -9,13 +9,14 @@ import net.sf.memoranda.util.Local;
 public class ImportSticker {
 
 String name;        
-public boolean CANCELLED = true;
+public boolean CANCELLED = false;
         public ImportSticker(String x) {
                 name = x;
         }
 
         public boolean import_file(){
-        	
+        	AppFrame app = new AppFrame();
+        	app.p1Import_actionPerformed();
                 /*
                  We are working on this =)
                   
@@ -26,7 +27,8 @@ public boolean CANCELLED = true;
                 
 
         	else
-        		JOptionPane.showMessageDialog(null,Local.getString("We can not import your document."));
+        		//JOptionPane.showMessageDialog(null,Local.getString("We can not import your document."));
+        		JOptionPane.showMessageDialog(null,Local.getString("Import Canceled."));
                 return true;
         }
         

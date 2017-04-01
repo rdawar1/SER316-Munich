@@ -27,6 +27,8 @@ public interface Project {
     
     public static final int FAILED = 5;
     
+    public static final int OVERDUE = 6;
+    
     String getID();
        
     CalendarDate getStartDate();

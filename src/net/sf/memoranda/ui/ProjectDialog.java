@@ -83,7 +83,7 @@ public class ProjectDialog extends JDialog {
         topPanel.add(header);
         
         centerPanel.setBorder(new EtchedBorder());
-        titleLabel.setText(Local.getString("Title"));
+        titleLabel.setText(Local.getString("Project Title"));
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
         gbc.gridwidth = 5;
