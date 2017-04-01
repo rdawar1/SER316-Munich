@@ -46,6 +46,7 @@ public class TaskPanel extends JPanel {
     JButton historyBackB = new JButton();
     JToolBar tasksToolBar = new JToolBar();
     JButton historyForwardB = new JButton();
+    JButton showTasksDue = new JButton();
     JButton newTaskB = new JButton();
     JButton subTaskB = new JButton();
     JButton editTaskB = new JButton();
@@ -98,6 +99,22 @@ public class TaskPanel extends JPanel {
         historyForwardB.setMinimumSize(new Dimension(24, 24));
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
+
+        showTasksDue.setIcon(
+        		new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_active.png")));
+        		showTasksDue.setEnabled(true);
+        		showTasksDue.setMaximumSize(new Dimension(24, 24));
+        		showTasksDue.setMinimumSize(new Dimension(24, 24));
+        		showTasksDue.setToolTipText(Local.getString("Show tasks due"));
+        		showTasksDue.setRequestFocusEnabled(false);
+        		showTasksDue.setPreferredSize(new Dimension(24, 24));
+        		showTasksDue.setFocusable(false);		
+        		showTasksDue.addActionListener(new java.awt.event.ActionListener() {
+        		public void actionPerformed(ActionEvent e) {
+        		showTasksDue_actionPerformed(e);
+        		}
+        		});
+        		showTasksDue.setBorderPainted(false);
 
         newTaskB.setIcon(
             new ImageIcon(net.sf.memoranda.ui.AppFrame.class.getResource("resources/icons/todo_new.png")));
@@ -316,6 +333,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.add(historyForwardB, null);
         tasksToolBar.addSeparator(new Dimension(8, 24));
 
+        tasksToolBar.add(showTasksDue, null);
         tasksToolBar.add(newTaskB, null);
         tasksToolBar.add(subTaskB, null);
         tasksToolBar.add(removeTaskB, null);
@@ -698,6 +716,24 @@ public class TaskPanel extends JPanel {
 		//taskTable.updateUI();
 	}
 
+	//Provides a list of the tasks for a specific date
+	void showTasksDue_actionPerformed(ActionEvent e){
+		TaskList tl = null;
+		int rc = taskTable.getRowCount();
+		taskTable.selectAll();
+		int[] list = taskTable.getSelectedRows();
+		for(int i = 0; i < rc; i++){
+			Task t =
+					CurrentProject.getTaskList().getTask(
+			                taskTable.getModel().getValueAt(list[i], TaskTable.TASK_ID).toString());
+			if (t.getEndDate() != CalendarDate.today()){
+				CurrentProject.getTaskList().removeTask(t);
+			}
+		}
+		taskTable.tableChanged();
+		parentPanel.updateIndicators();
+	}
+		
 	// toggle "show active only"
 	void toggleShowActiveOnly_actionPerformed(ActionEvent e) {
 		Context.put(
