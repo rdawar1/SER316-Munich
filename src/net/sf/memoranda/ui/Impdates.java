@@ -19,7 +19,7 @@ public class Impdates extends JDialog implements ActionListener{
 	public boolean x = false;
 public Impdates() {
 		
-	
+// Creates the panel
  JFrame frame = new JFrame("Important Dates");
  JPanel panel = new JPanel();
  panel.setLayout(new FlowLayout());
@@ -44,7 +44,6 @@ public Impdates() {
  frame.setVisible(true);
 
  panel.add(label1);
- //panel.add(button1);
  panel.add(label2);
  panel.add(label3);
  panel.add(label4);
@@ -96,16 +95,15 @@ public static Impdates getI()
 	}
 	return I;
 }
-
+//When Submit is clicked, it adds the text to the class
 @Override
 public void actionPerformed(ActionEvent e) {
-	//for ( i=0; i < dates.length; i++)
+	
 	{
 		if(e.getSource()==submit)
 		{
 	        dates[i] = text.getText();
-	        // this.dispose();
-	        //getI();
+	        /
 	        new Impdates();
 		}
 		
