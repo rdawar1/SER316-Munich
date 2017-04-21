@@ -22,8 +22,6 @@ public interface TaskList {
     Task createTask(CalendarDate startDate, CalendarDate endDate, String text, int priority, long effort, String description, String parentTaskId);
 
     void removeTask(Task task);
-//  void hide(int taskID);
-//  void show(int taskID);
 
     public boolean hasSubTasks(String id);
     
