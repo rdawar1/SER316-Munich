@@ -57,8 +57,8 @@ class DigitalClock1  {
 
  class  ClockLabel extends JLabel implements ActionListener
  {
-	  String type;
-	  SimpleDateFormat sdf;
+ String type;
+ SimpleDateFormat sdf;
   public ClockLabel(String type) {
     this.type = type;
     setForeground(Color.red);
