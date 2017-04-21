@@ -21,8 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import net.sf.memoranda.CurrentProject;
 import net.sf.memoranda.History;
@@ -42,6 +45,8 @@ import net.sf.memoranda.util.Util;
 
 /*$Id: TaskPanel.java,v 1.27 2007/01/17 20:49:12 killerjoe Exp $*/
 public class TaskPanel extends JPanel {
+	
+	private boolean tasksHidden = false;
     BorderLayout borderLayout1 = new BorderLayout();
     JButton historyBackB = new JButton();
     JToolBar tasksToolBar = new JToolBar();
@@ -718,20 +723,54 @@ public class TaskPanel extends JPanel {
 
 	//Provides a list of the tasks for a specific date
 	void showTasksDue_actionPerformed(ActionEvent e){
-		TaskList tl = null;
-		int rc = taskTable.getRowCount();
+
+		if (!tasksHidden){
+			taskTable.setRowSorter(new TableRowSorter<TableModel>(taskTable.getModel()));
+			TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(taskTable.getModel());
+			
+			int[] list = taskTable.getSelectedRows();
+			for (int i = 0; i < list.length; i++){
+				list[i] = taskTable.convertRowIndexToModel(list[i]);
+			}
+			
+			//sorts rows with the string "Deadline"
+			sorter.setRowFilter(RowFilter.regexFilter("^Deadline$"));
+			taskTable.setRowSorter(sorter);
+			tasksHidden = true;
+		}
+		else{
+			taskTable.setRowSorter(new TableRowSorter<TableModel>(taskTable.getModel()));
+			TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(taskTable.getModel());
+			
+			int[] list = taskTable.getSelectedRows();
+			for (int i = 0; i < list.length; i++){
+				list[i] = taskTable.convertRowIndexToModel(list[i]);
+			}
+			
+			//sorts rows that contain string ""
+			sorter.setRowFilter(RowFilter.regexFilter(""));
+			taskTable.setRowSorter(sorter);
+			tasksHidden = false;
+		}
+		
+		
+		
+		//taskTable.setAutoCreateRowSorter(true);
+		/*int rc = taskTable.getRowCount();
 		taskTable.selectAll();
 		int[] list = taskTable.getSelectedRows();
 		for(int i = 0; i < rc; i++){
-			Task t =
-					CurrentProject.getTaskList().getTask(
+			Task t = CurrentProject.getTaskList().getTask(
 			                taskTable.getModel().getValueAt(list[i], TaskTable.TASK_ID).toString());
-			if (t.getEndDate() != CalendarDate.today()){
-				CurrentProject.getTaskList().removeTask(t);
+			if (!t.getEndDate().equals(CurrentDate.get())){
+				CurrentProject.getTaskList().hide(t.getID());
+				//CurrentProject.getTaskList().show();
+				//CurrentStorage.get().openTaskList(CurrentProject.get());
 			}
+			
 		}
 		taskTable.tableChanged();
-		parentPanel.updateIndicators();
+		parentPanel.updateIndicators();*/
 	}
 		
 	// toggle "show active only"
