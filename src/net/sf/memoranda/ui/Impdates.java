@@ -1,4 +1,3 @@
-
 //The Impdates list all the important dates in your 
 //calender so you do not forget about them.
 //The important dates include dates you have tasks due and holidays
@@ -10,10 +9,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 public class Impdates extends JDialog implements ActionListener{
-	
+	static String[] dates = new String[100];
+	int i=0;
 	JTextField text, text1;
 	 JButton submit, convert1;;
 	public boolean unitTest;
+	private static Impdates I;
 	
 	public boolean x = false;
 public Impdates() {
@@ -24,20 +25,16 @@ public Impdates() {
  panel.setLayout(new FlowLayout());
  JPanel panel1 = new JPanel();
  panel1.setLayout(new FlowLayout());
- JLabel label = new JLabel("Things due This Week!"); 
-
- JButton button = new JButton();
- button.setText("Open List");
+ 
  JButton button1 = new JButton();
- //button.setText("");
- JLabel label1 = new JLabel(" ASU Holidays! : ");
+ JLabel label1 = new JLabel(" ASU Holidays!");
+ JLabel labeltryy = new JLabel(dates[i]);
  JLabel label2 = new JLabel("Spring Break : 5-12th April"); 
  JLabel label3 = new JLabel("Lovers Day : October 28");
  JLabel label4 = new JLabel("\n");
 
 
- panel.add(label);
- panel.add(button);
+
 
 
  frame.add(panel);
@@ -47,10 +44,11 @@ public Impdates() {
  frame.setVisible(true);
 
  panel.add(label1);
- panel.add(button1);
+ //panel.add(button1);
  panel.add(label2);
  panel.add(label3);
  panel.add(label4);
+ panel.add(labeltryy);
 
  frame.add(panel1);
  frame.setSize(300, 300);
@@ -77,18 +75,42 @@ submit.setBounds(30,150,280,30);
 
 
 
-submit.addActionListener(this);
+
+
 this.add(text);
 this.add(submit);
+submit.addActionListener(this);
 
 
 
 
 this.setVisible(true); 
 }
+
+public static Impdates getI()
+{
+	if( I == null)
+	{
+		I = new Impdates();
+		return I;
+	}
+	return I;
+}
+
 @Override
 public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
+	//for ( i=0; i < dates.length; i++)
+	{
+		if(e.getSource()==submit)
+		{
+	        dates[i] = text.getText();
+	        // this.dispose();
+	        //getI();
+	        new Impdates();
+		}
+		
+	}
+
 	
 }
 }
