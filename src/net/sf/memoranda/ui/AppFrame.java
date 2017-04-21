@@ -340,7 +340,7 @@ public class AppFrame extends JFrame {
         projectsPanel.setPreferredSize(new Dimension(10, 28));
         /*workPanel.setMinimumSize(new Dimension(734, 300));
          workPanel.setPreferredSize(new Dimension(1073, 300));*/
-        splitPane.setDividerLocation(28);
+        splitPane.setDividerLocation(150);
 
         /* jMenuFileNewPrj.setText(Local.getString("New project") + "...");
          jMenuFileNewPrj.addActionListener(new ActionListener() {
