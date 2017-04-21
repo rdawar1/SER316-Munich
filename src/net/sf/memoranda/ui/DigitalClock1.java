@@ -1,25 +1,14 @@
 package net.sf.memoranda.ui;
-
 import java.awt.*;
-
 import java.awt.event.*;
-
 import javax.swing.*;
-
 import java.util.*;
 import java.text.*;
 import javax.swing.Timer;
- /*
-public class DigitalClock1 {
- 
-  public static void main(String[] arguments) {
- 
- DigitalClock11 k = DigitalClock11.getInstance();
-  }
-	
-	
-}
- */
+/* By Rahul Daawr
+The class uses singleton design pattern to create a Digital clock. 
+
+*/
 class DigitalClock1  {
  
   private static DigitalClock1 ck;
