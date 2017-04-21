@@ -39,6 +39,7 @@ public class WorkPanel extends JPanel {
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
 	public JButton datesB = new JButton();
+	public JButton ClockB = new JButton();
 	JButton currentB = null;
 	Border border1;
 
@@ -120,6 +121,87 @@ public class WorkPanel extends JPanel {
 		datesB.setOpaque(false);
 		datesB.setMargin(new Insets(0, 0, 0, 0));
 		datesB.setSelected(true);
+		
+		
+		datesB.setBackground(Color.white);
+		datesB.setMaximumSize(new Dimension(60, 80));
+		datesB.setMinimumSize(new Dimension(30, 30));
+
+		datesB.setFont(new java.awt.Font("Dialog", 1, 10));
+		datesB.setPreferredSize(new Dimension(50, 50));
+		datesB.setBorderPainted(false);
+		datesB.setContentAreaFilled(false);
+		datesB.setFocusPainted(false);
+		datesB.setHorizontalTextPosition(SwingConstants.CENTER);
+		datesB.setText(Local.getString("Imp Dates"));
+		datesB.setVerticalAlignment(SwingConstants.TOP);
+		datesB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		datesB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				datesB_actionPerformed(e);
+			}
+		});
+		datesB.setIcon(
+			new ImageIcon(
+				net.sf.memoranda.ui.AppFrame.class.getResource(
+					"resources/icons/agenda.png")));
+		datesB.setOpaque(false);
+		datesB.setMargin(new Insets(0, 0, 0, 0));
+		datesB.setSelected(true);
+		
+		
+		ClockB.setBackground(Color.white);
+		ClockB.setMaximumSize(new Dimension(60, 80));
+		ClockB.setMinimumSize(new Dimension(30, 30));
+
+		ClockB.setFont(new java.awt.Font("Dialog", 1, 10));
+		ClockB.setPreferredSize(new Dimension(50, 50));
+		ClockB.setBorderPainted(false);
+		ClockB.setContentAreaFilled(false);
+		ClockB.setFocusPainted(false);
+		ClockB.setHorizontalTextPosition(SwingConstants.CENTER);
+		ClockB.setText(Local.getString("Digital Clock"));
+		ClockB.setVerticalAlignment(SwingConstants.TOP);
+		ClockB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		ClockB.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		ClockB_actionPerformed(e);
+		}
+		});
+		ClockB.setIcon(
+		new ImageIcon(
+		net.sf.memoranda.ui.AppFrame.class.getResource(
+		"resources/icons/agenda.png")));
+		ClockB.setOpaque(false);
+		ClockB.setMargin(new Insets(0, 0, 0, 0));
+		ClockB.setSelected(true);
+
+
+		ClockB.setBackground(Color.white);
+		ClockB.setMaximumSize(new Dimension(60, 80));
+		ClockB.setMinimumSize(new Dimension(30, 30));
+
+		ClockB.setFont(new java.awt.Font("Dialog", 1, 10));
+		ClockB.setPreferredSize(new Dimension(50, 50));
+		ClockB.setBorderPainted(false);
+		ClockB.setContentAreaFilled(false);
+		ClockB.setFocusPainted(false);
+		ClockB.setHorizontalTextPosition(SwingConstants.CENTER);
+		ClockB.setText(Local.getString("Digital Clock"));
+		ClockB.setVerticalAlignment(SwingConstants.TOP);
+		ClockB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		ClockB.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		ClockB_actionPerformed(e);
+		}
+		});
+		ClockB.setIcon(
+		new ImageIcon(
+		net.sf.memoranda.ui.AppFrame.class.getResource(
+		"resources/icons/agenda.png")));
+		ClockB.setOpaque(false);
+		ClockB.setMargin(new Insets(0, 0, 0, 0));
+		ClockB.setSelected(true);
 
 		eventsB.setBackground(Color.white);
 		eventsB.setMaximumSize(new Dimension(60, 80));
@@ -233,6 +315,7 @@ public class WorkPanel extends JPanel {
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
 		toolBar.add(datesB, null);
+		toolBar.add(ClockB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -273,6 +356,9 @@ public class WorkPanel extends JPanel {
 		Impdates d = new Impdates();
 	}
 	
+	public void ClockB_actionPerformed(ActionEvent e) {
+		DigitalClock1 clk = DigitalClock1.getInstance();
+	}
 	
 	
 	
