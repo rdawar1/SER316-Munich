@@ -12,6 +12,9 @@ The class uses singleton design pattern to create a Digital clock.
 class DigitalClock1  {
  
   private static DigitalClock1 ck;
+  
+  // used for unit test
+  boolean test1 = false;
 
 
   
@@ -36,11 +39,14 @@ class DigitalClock1  {
 	    frame.getContentPane().setBackground(Color.black);
 	 
 	    frame.setVisible(true);
+	    test1 = true;
+	    // used for unit test
   }
 
   
   public static DigitalClock1 getInstance()
   {
+	
 	  
 	  if(ck == null)
 	  {
@@ -57,8 +63,10 @@ class DigitalClock1  {
 
  class  ClockLabel extends JLabel implements ActionListener
  {
- String type;
- SimpleDateFormat sdf;
+  String type;
+  SimpleDateFormat sdf;
+  boolean test0 = false;
+  
   public ClockLabel(String type) {
     this.type = type;
     setForeground(Color.red);
@@ -92,6 +100,7 @@ class DigitalClock1  {
  
   public void actionPerformed(ActionEvent ae) 
   {
+	  test0 = true;
     Date time = new Date();
     setText(sdf.format(time));
   }
