@@ -41,8 +41,7 @@ public class TaskProgressEditor extends JPanel implements TableCellEditor{
 				}else{
 					current.setProgress( current.getProgress()-5 );
 				}
-				//repaint();
-				table.repaint();
+				repaint();
 			}
 		});
 		setLayout(new java.awt.BorderLayout());
@@ -103,3 +102,5 @@ public class TaskProgressEditor extends JPanel implements TableCellEditor{
 	public boolean shouldSelectCell(java.util.EventObject var0){return true;}	
     
 }
+
+
