@@ -9,11 +9,13 @@
 package net.sf.memoranda;
 
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
 import net.sf.memoranda.date.CalendarDate;
+import net.sf.memoranda.ui.DailyItemsPanel;
 import net.sf.memoranda.ui.TaskTable;
 import net.sf.memoranda.util.Util;
 import nu.xom.Attribute;
@@ -41,6 +43,7 @@ public class TaskListImpl implements TaskList {
 	 * (ID => element) 
 	 */
 	private Hashtable elements = new Hashtable();
+	private Hashtable tempElem = new Hashtable();
     
     /**
      * Constructor for TaskListImpl.
@@ -65,6 +68,7 @@ public class TaskListImpl implements TaskList {
 	/*
 	 * Build the hashtable recursively
 	 */
+	@SuppressWarnings("unchecked")
 	private void buildElements(Element parent) {
 		Elements els = parent.getChildElements("task");
 		for (int i = 0; i < els.size(); i++) {
@@ -152,17 +156,8 @@ public class TaskListImpl implements TaskList {
         }
 		elements.remove(task.getID());
     }
-    /*
-    public void hide(int taskID){
-       	//TODO
-       	TaskTable c = new TaskTable();
-      	c.setRowHeight(taskID, 1);
-       	c.layout();
-      }
-        
-     public void show(int taskID){
-       	//TODO
-      }*/
+    
+
     
     public boolean hasSubTasks(String id) {
         Element task = getTaskElement(id);
