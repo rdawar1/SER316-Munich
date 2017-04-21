@@ -52,6 +52,9 @@ public class StickerDialog extends JDialog {
 	JSpinner expirationDateSpinner;
 	//boolean expires = false;
 	
+	//dlahtine
+	JPanel expirationPanel = new JPanel();
+	
 	public boolean CANCELLED = true;
 	JPanel panel1 = new JPanel();
 	BorderLayout borderLayout1 = new BorderLayout();
@@ -75,9 +78,11 @@ public class StickerDialog extends JDialog {
 	JLabel jLabel3 = new JLabel();
 	JLabel jLabel4 = new JLabel();
 	GridLayout gridLayout1 = new GridLayout(6,2);
+	GridLayout threeCol = new GridLayout(1, 3);
 
 	Border border1;
 	Border border2;
+	Border border3;
 	Color[] colors =
 		{
 			Color.YELLOW,
@@ -184,20 +189,22 @@ public class StickerDialog extends JDialog {
 					new Color(156, 156, 158)),
 				BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		border2 = BorderFactory.createEmptyBorder(5, 0, 5, 0);
+		//dlahtine
+		border3 = BorderFactory.createEmptyBorder(0, 0, 0, 0);
 		panel1.setLayout(borderLayout1);
 		this.getContentPane().setLayout(borderLayout2);
-		cancelButton.setMaximumSize(new Dimension(100, 25));
-		cancelButton.setMinimumSize(new Dimension(100, 25));
-		cancelButton.setPreferredSize(new Dimension(100, 25));
+		cancelButton.setMaximumSize(new Dimension(70, 25));
+		cancelButton.setMinimumSize(new Dimension(70, 25));
+		cancelButton.setPreferredSize(new Dimension(70, 25));
 		cancelButton.setText(Local.getString("Cancel"));
 		cancelButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancelButton_actionPerformed(e);
 			}
 		});
-		okButton.setMaximumSize(new Dimension(100, 25));
-		okButton.setMinimumSize(new Dimension(100, 25));
-		okButton.setPreferredSize(new Dimension(100, 25));
+		okButton.setMaximumSize(new Dimension(70, 25));
+		okButton.setMinimumSize(new Dimension(70, 25));
+		okButton.setPreferredSize(new Dimension(70, 25));
 		okButton.setText(Local.getString("Ok"));
 		okButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -248,6 +255,7 @@ public class StickerDialog extends JDialog {
 		jLabel4.setText(Local.getString("Priority")+": ");
 
 		jPanel1.setLayout(gridLayout1);
+		expirationPanel.setLayout(threeCol);
 		panel1.setBorder(border1);
 		jPanel1.setBorder(border2);
 		
@@ -255,22 +263,10 @@ public class StickerDialog extends JDialog {
 		panel1.add(jScrollPane1, BorderLayout.CENTER);
 		jScrollPane1.getViewport().add(stickerText, null);
 		panel1.add(jPanel1, BorderLayout.SOUTH);
+		add(expirationPanel, BorderLayout.SOUTH);
 		this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-		bottomPanel.add(okButton);
-		bottomPanel.add(cancelButton);
-		this.getContentPane().add(topPanel, BorderLayout.NORTH);
-		topPanel.add(header);
 		
 		//dlahtine
-		expiresLabel.setText("Expires");
-		expiresCheckBox.setSelected(false);
-		expiresCheckBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				expirationDateSpinner.setEnabled(expiresCheckBox.isSelected());
-				//expires = expiresCheckBox.isSelected()
-			}
-		});
-		
 		expirationDateSpinner = new JSpinner(new SpinnerDateModel(new Date(),null,null,Calendar.DAY_OF_WEEK));
 		expirationDateSpinner.setEnabled(false);
 		expirationDateSpinner.setPreferredSize(new Dimension(80,34));
@@ -291,6 +287,29 @@ public class StickerDialog extends JDialog {
                 }
             }
 		});
+		expirationDateSpinner.setMinimumSize(new Dimension(70, 30));
+		expirationDateSpinner.setMaximumSize(new Dimension(70, 30));
+		expirationDateSpinner.setPreferredSize(new Dimension(70, 30));
+		bottomPanel.add(expiresLabel);
+		bottomPanel.add(expiresCheckBox);
+		bottomPanel.add(expirationDateSpinner);
+		
+		bottomPanel.add(okButton);
+		bottomPanel.add(cancelButton);
+		this.getContentPane().add(topPanel, BorderLayout.NORTH);
+		topPanel.add(header);
+		
+		//dlahtine
+		expiresLabel.setText("Expires");
+		expiresCheckBox.setSelected(false);
+		expiresCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				expirationDateSpinner.setEnabled(expiresCheckBox.isSelected());
+				//expires = expiresCheckBox.isSelected()
+			}
+		});
+		
+		
 		
 		
 		
@@ -308,10 +327,8 @@ public class StickerDialog extends JDialog {
 		jPanel1.add(jLabel4);
 		jPanel1.add(priorityList);
 		
-		//dlahtine
-		jPanel1.add(expiresLabel);
-		jPanel1.add(expiresCheckBox);
-		jPanel1.add(expirationDateSpinner);
+		
+		
 		
 		if (Context.get("STICKER_COLOR") != null) {
 			Color c = new Color(new Integer(Context.get("STICKER_COLOR").toString()).intValue());
@@ -379,6 +396,9 @@ public class StickerDialog extends JDialog {
 				fontSize_actionPerformed(e);
 			}
 		});
+		this.setPreferredSize(new Dimension(350, 400));
+		this.setMinimumSize(new Dimension(350, 400));
+		
 	}
 
 	int findColorIndex(Color c) {		
