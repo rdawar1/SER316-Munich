@@ -28,7 +28,9 @@ public class Password extends JDialog implements ActionListener {
 	 boolean ret = false;
 	 JButton submit, convert1;;
 	public boolean unitTest;
-	 
+	
+	String[] user = new String[5];
+	String[] pswd = new String[5];
 
 	public Password()
 	{
@@ -36,7 +38,7 @@ public class Password extends JDialog implements ActionListener {
 		txt=new JTextField("User Name");
 		txt1=new JTextField("Password");
 		submit=new JButton("submit");
-		
+		this.setUser();
 		
 		this.setModal(true);
 		this.setLayout(null);
@@ -68,6 +70,21 @@ public class Password extends JDialog implements ActionListener {
 		
 	}
 	
+	public void setUser()
+	{
+		user[0] = "Andrew";
+		pswd[0] = "A";
+		user[1] = "Rahul";
+		pswd[1] = "R";
+		user[2] = "Leirbag";
+		pswd[2] = "L";
+		user[3] = "David";
+		pswd[3] = "D";
+		user[4] = "Michael";
+		pswd[4] = "M";
+		
+	}
+	
 	/**
 	 * @param ActionEvent
 	 * @return void
@@ -81,9 +98,9 @@ public class Password extends JDialog implements ActionListener {
 		    if(e.getSource()==submit)
 			{
 				
-				if(txt.getText().equals("User Name"))
+
+				if(checkPassword1(txt.getText(), txt1.getText()))
 				{
-					
 					ret = true;
 					dispose();
 				}
@@ -106,6 +123,19 @@ public class Password extends JDialog implements ActionListener {
 	{
 		
 		return ret;
+	}
+	
+	boolean checkPassword1(String usr, String pwd)
+	{
+		for(int i = 0; i <user.length;i++)
+		{
+			if(usr.equals(user[i]) && pwd.equals(pswd[i]))
+			{
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 }
