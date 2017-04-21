@@ -105,7 +105,7 @@ public class WorkPanel extends JPanel {
 		datesB.setContentAreaFilled(false);
 		datesB.setFocusPainted(false);
 		datesB.setHorizontalTextPosition(SwingConstants.CENTER);
-		datesB.setText(Local.getString("Imp Dates"));
+		datesB.setText(Local.getString("Dates"));
 		datesB.setVerticalAlignment(SwingConstants.TOP);
 		datesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		datesB.addActionListener(new java.awt.event.ActionListener() {
