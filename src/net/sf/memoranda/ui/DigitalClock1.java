@@ -13,8 +13,7 @@ class DigitalClock1  {
  
   private static DigitalClock1 ck;
 
-  SimpleDateFormat sdf2;
-  SimpleDateFormat sdf3;
+
   
   
   
@@ -91,7 +90,8 @@ class DigitalClock1  {
     t.start();
   }
  
-  public void actionPerformed(ActionEvent ae) {
+  public void actionPerformed(ActionEvent ae) 
+  {
     Date time = new Date();
     setText(sdf.format(time));
   }
